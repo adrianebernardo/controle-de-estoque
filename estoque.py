@@ -83,4 +83,34 @@ def listar_produtos(lista_produtos):
     for item in lista_produtos: # percorre cada produto e imprime formatado igual o cabeçalho
         print(f"{item['nome']:<20} | {item['quantidade']:<10} | R$ {item['preco']:<12.2f}")
 
+# commit 4:
+def estatisticas(lista_produtos): # calcula tudo que o enunciado pede: total, mais caro
+    # e mais barato — sem imprimir nada aqui, só calcula e devolve (é a função quem faz
+    # as contas usando return, o menu que decide como mostrar)
+    if not lista_produtos: # se não tem produto, não dá pra calcular estatística nenhuma
+        return None
+
+    total = sum(item["quantidade"] * item["preco"] for item in lista_produtos) # soma de
+    # qtd * preço de cada item, tudo numa linha só (list comprehension com sum)
+
+    mais_caro = max(lista_produtos, key=lambda item: item["preco"]) # "key" diz pro Python
+    # comparar os dicionários pelo valor do preço, não pelo dicionário inteiro
+    mais_barato = min(lista_produtos, key=lambda item: item["preco"])
+
+    return total, mais_caro, mais_barato # devolve os 3 valores de uma vez (tupla)
+
+
+def exibir_estatisticas(lista_produtos): # essa aqui só chama a de cima e imprime bonitinho
+    print("\n--- ESTATÍSTICAS DO ESTOQUE ---")
+    resultado = estatisticas(lista_produtos)
+
+    if resultado is None: # se não veio nada, é porque a lista tava vazia
+        print("Nenhum produto cadastrado para calcular estatísticas.")
+        return
+
+    total, mais_caro, mais_barato = resultado # desempacota a tupla nas 3 variáveis
+    print(f"Valor total parado no estoque: R$ {total:.2f}")
+    print(f"Produto mais caro: {mais_caro['nome']} (R$ {mais_caro['preco']:.2f})")
+    print(f"Produto mais barato: {mais_barato['nome']} (R$ {mais_barato['preco']:.2f})")
+
 
