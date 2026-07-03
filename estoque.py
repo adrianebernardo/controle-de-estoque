@@ -112,7 +112,7 @@ def exibir_estatisticas(lista_produtos): # essa aqui só chama a de cima e impri
     print(f"Valor total parado no estoque: R$ {total:.2f}")
     print(f"Produto mais caro: {mais_caro['nome']} (R$ {mais_caro['preco']:.2f})")
     print(f"Produto mais barato: {mais_barato['nome']} (R$ {mais_barato['preco']:.2f})")
-    
+
 # commit 5:
 def menu(): # função principal, é ela que fica rodando enquanto o programa estiver aberto
     estoque = carregar_dados() # carrega o que já tinha salvo assim que o programa começa
@@ -156,4 +156,4 @@ if __name__ == "__main__": # só roda o menu() se o arquivo for executado direta
     # e não se ele for importado dentro de outro arquivo
     menu()
 
-
+# ------------------------------------------------------------------------------------------------------
