@@ -43,7 +43,6 @@ def pedir_quantidade(): # fica repetindo até receber um número inteiro válido
             # ele mostra o print bonitinho!
             print("Entrada inválida! Digite um número inteiro (ex: 10), não texto (ex: 'dez').")
 
-
 def pedir_preco(): # mesma lógica da quantidade, só que aceitando número decimal (float)
     while True:
         try:
@@ -54,7 +53,6 @@ def pedir_preco(): # mesma lógica da quantidade, só que aceitando número deci
             return preco
         except ValueError:
             print("Entrada inválida! Digite um número (ex: 19.90), não texto.")
-
 
 def cadastrar_produto(): # pede os 3 dados do produto e devolve um dicionário pronto
     print("\n--- CADASTRAR PRODUTO ---")
@@ -72,3 +70,17 @@ def cadastrar_produto(): # pede os 3 dados do produto e devolve um dicionário p
         "preco": preco
     }
     return produto # quem chamou (o menu) que decide o que fazer com esse dicionário
+
+# commit 3:
+def listar_produtos(lista_produtos):
+    print("\n--- LISTA DE PRODUTOS ---")
+    if not lista_produtos: # lista vazia = nenhum produto foi cadastrado ainda
+        print("Nenhum produto cadastrado até o momento, loser.")
+        return
+    # decorações omagaaa
+    print(f"{'Produto':<20} | {'Quantidade':<10} | {'Preço unitário':<15}")
+    print("-" * 50) # linha separadora só pra ficar bonitinho
+    for item in lista_produtos: # percorre cada produto e imprime formatado igual o cabeçalho
+        print(f"{item['nome']:<20} | {item['quantidade']:<10} | R$ {item['preco']:<12.2f}")
+
+
