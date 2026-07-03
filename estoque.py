@@ -112,5 +112,48 @@ def exibir_estatisticas(lista_produtos): # essa aqui só chama a de cima e impri
     print(f"Valor total parado no estoque: R$ {total:.2f}")
     print(f"Produto mais caro: {mais_caro['nome']} (R$ {mais_caro['preco']:.2f})")
     print(f"Produto mais barato: {mais_barato['nome']} (R$ {mais_barato['preco']:.2f})")
+    
+# commit 5:
+def menu(): # função principal, é ela que fica rodando enquanto o programa estiver aberto
+    estoque = carregar_dados() # carrega o que já tinha salvo assim que o programa começa
+    if estoque is None: # proteção extra, caso carregar_dados devolva None por algum motivo
+        estoque = []
+
+    while True: # loop infinito, só para quando o usuário escolhe sair (opção 5)
+        print("\n=============================")
+        print("  CONTROLE DE ESTOQUE")
+        print("=============================")
+        print("1 -> Cadastrar Produto")
+        print("2 -> Listar Produtos")
+        print("3 -> Ver Estatísticas")
+        print("4 -> Salvar Dados")
+        print("5 -> Sair")
+        print("=============================")
+
+        opcao = input("Escolha uma opção: ").strip() # strip pra não dar erro se a pessoa
+        # digitar espaço sem querer antes/depois do número
+
+        if opcao == "1":
+            novo_produto = cadastrar_produto() # chama a função de cadastro
+            if novo_produto is not None: # só adiciona na lista se o cadastro deu certo
+                estoque.append(novo_produto)
+                print(f"Produto '{novo_produto['nome']}' cadastrado com sucesso!")
+        elif opcao == "2":
+            listar_produtos(estoque)
+        elif opcao == "3":
+            exibir_estatisticas(estoque)
+        elif opcao == "4":
+            salvar_dados(estoque) # opção separada pra salvar quando o usuário quiser
+        elif opcao == "5":
+            print("\nSalvando dados e encerrando o sistema. Até mais!")
+            salvar_dados(estoque) # salva automaticamente antes de sair, pra garantir
+            break # quebra o while True e o programa termina
+        else:
+            print("\nOpção inválida! Por favor, escolha um número de 1 a 5.")
+
+
+if __name__ == "__main__": # só roda o menu() se o arquivo for executado diretamente,
+    # e não se ele for importado dentro de outro arquivo
+    menu()
 
 
