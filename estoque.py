@@ -18,7 +18,6 @@ def carregar_dados():
         print("Não consegui ler o arquivo salvo. Vou começar com o estoque vazio.")
         return [] # protege contra o arquivo corrompido
 
-
 def salvar_dados(lista_produtos): # "lista_produtos" é a lista inteira de produtos cadastrados
     try:
         with open(ARQUIVO, "w", encoding="utf-8") as f: # "w" = escrever
@@ -30,3 +29,46 @@ def salvar_dados(lista_produtos): # "lista_produtos" é a lista inteira de produ
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
 
+# commit 2:
+def pedir_quantidade(): # fica repetindo até receber um número inteiro válido (a "dica" do
+    # enunciado é exatamente essa: se a pessoa digitar "dez", não pode quebrar!)
+    while True:
+        try:
+            qtd = int(input("Quantidade: "))
+            if qtd < 0:
+                print("A quantidade não pode ser negativa! >:(")
+                continue # para tudo! e volta para o começo do while
+            return qtd
+        except ValueError: # para o Python não mostrar esse erro feio e crashar tudo,
+            # ele mostra o print bonitinho!
+            print("Entrada inválida! Digite um número inteiro (ex: 10), não texto (ex: 'dez').")
+
+
+def pedir_preco(): # mesma lógica da quantidade, só que aceitando número decimal (float)
+    while True:
+        try:
+            preco = float(input("Preço unitário (ex: 19.90): "))
+            if preco < 0:
+                print("O preço não pode ser negativo! >:(")
+                continue
+            return preco
+        except ValueError:
+            print("Entrada inválida! Digite um número (ex: 19.90), não texto.")
+
+
+def cadastrar_produto(): # pede os 3 dados do produto e devolve um dicionário pronto
+    print("\n--- CADASTRAR PRODUTO ---")
+    nome = input("Nome do produto: ").strip() # strip = remove espaços extras no começo/fim
+    if not nome: # confere se o nome foi digitado
+        print("O nome do produto não pode ser vazio!")
+        return None # devolve None pra avisar quem chamou que não rolou o cadastro
+
+    quantidade = pedir_quantidade()
+    preco = pedir_preco()
+
+    produto = { # o tal do dicionário
+        "nome": nome,
+        "quantidade": quantidade,
+        "preco": preco
+    }
+    return produto # quem chamou (o menu) que decide o que fazer com esse dicionário
